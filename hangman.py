@@ -55,6 +55,21 @@ def game(target_word, level):
 	if correct:
 		print("You win this level!")
 	else:
-		print("Sorry you killed the man by using all your attempts.  Game Over.")
+		print("Sorry you killed the man by using all your attempts. The word was " ,target_word ," Game Over.")
 
+
+
+
+
+
+
+
+def main():
+	use_word = what_word_to_use()
+	level = 1	
+	game(use_word, level)
+	while input("Move on the next level Y/N").lower == "y"  and level < len(words_to_choose):
+		use_word = what_word_to_use()
+		level = level + 1
+		game(use_word, level)
 	
