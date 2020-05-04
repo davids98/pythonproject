@@ -52,4 +52,9 @@ def game(target_word, level):
 		else: 
 			print("Not a valid input. Please try again" )
 
+	if correct:
+		print("You win this level!")
+	else:
+		print("Sorry you killed the man by using all your attempts.  Game Over.")
+
 	
