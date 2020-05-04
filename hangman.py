@@ -12,7 +12,7 @@ def game(target_word, level):
 	words_guess = []
 	attempts_left = 6
 	if level == 0:
-	print("Hangman is about to begin! \n")
+		print("Hangman is about to begin! \n")
 	print("Level ")
 	print(str(level))
 	print("\n")
@@ -21,10 +21,20 @@ def game(target_word, level):
 	while not corrrect and attempts_left > 0:
 		attempt = input("Please guess a letter or word: " ).lower()
 		if len(attempt) == 1 and attempt.isalpha():
-
+			if attempt in letters_guess:
+				print("You've already guessed the letter: " ,attempt)
+			elif attempt not in target_word:
+				print("Letter: ",attempt," is not in the word. Try again")
+				attempts_left -= 1
+				letters_guess.append(attempt)
+			else:
+				print("You guessed a correct letter")
+				#letters_guess.append(attempt) 
+				#convert_word_to_list = list(target_word)
+				
 		elif len(attempt) == len(word) and attempt.isalpha():
-
+			x=1
 		elif len(attempt) > 1 and attempt.isalpha():
-
+			x=1
 		else: 
 			print("Not a valid input. Please try again" )
