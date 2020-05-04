@@ -29,9 +29,14 @@ def game(target_word, level):
 				letters_guess.append(attempt)
 			else:
 				print("You guessed a correct letter")
-				#letters_guess.append(attempt) 
-				#convert_word_to_list = list(target_word)
-				
+				letters_guess.append(attempt) 
+				convert_word_to_list = list(target_word)
+				letters = [x for x, letter in enumerate(convert_word_to_list) if letter ==guess]
+				for number in letters:
+					convert_word_to_list[number] = attempt
+				complete = "".join(convert_word_to_list)
+				if "_" not in complete:
+					correct == True	
 		elif len(attempt) == len(word) and attempt.isalpha():
 			x=1
 		elif len(attempt) > 1 and attempt.isalpha():
