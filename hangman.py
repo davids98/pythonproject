@@ -38,8 +38,18 @@ def game(target_word, level):
 				if "_" not in complete:
 					correct == True	
 		elif len(attempt) == len(word) and attempt.isalpha():
-			x=1
+			if attempt in words_guess:
+				print("You've already guessed the word: " ,attempt)
+			elif attempt != target_word: 
+				print(attempt," is not the correct word. Try again")
+				attempts_left -= 1
+				words_guess.append(attempt)
+			else: 
+				correct = True
+				complete = target_word
 		elif len(attempt) > 1 and attempt.isalpha():
-			x=1
+			print("Guess does not have correct amount of letters. Try again." )
 		else: 
 			print("Not a valid input. Please try again" )
+
+	
