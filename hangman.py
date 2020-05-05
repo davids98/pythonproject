@@ -86,20 +86,29 @@ def what_word_to_use():
 	target_word = random.choice(words_to_choose)
 	return target_word.lower()
 
+def addToWord(word,letter,display):
+	instance = []
+	for x in range(len(word)):
+		if letter == word[x]:
+			instance.append(x)
+	for j in range(len(instance)):
+		display[instance[j]] = word[instance[j]]			
+
 def game(target_word, level):
 	complete = "_"  * len(target_word)
 	correct = False;
 	letters_guess = []
 	words_guess = []
-	attempts_left = 5
+	attempts_left = 6
 	if level == 1:
 		print("\n H A N G M A N \n")
 		input("Press Enter To Begin ..." )
 	print("You Are On Level " , level)
 	print("\n")
-	print(complete)
-	print("\n")
+	
 	while not correct and attempts_left > 0:
+		print(complete)
+		print("\n")
 		attempt = input("Please guess a letter or word: " ).lower()
 		if len(attempt) == 1 and attempt.isalpha():
 			if attempt in letters_guess:
@@ -113,14 +122,13 @@ def game(target_word, level):
 				draw(attempts_left)
 				print("You guessed a correct letter")
 				letters_guess.append(attempt) 
-				convert_word_to_list = list(target_word)
-				letters = [x for x, letter in enumerate(convert_word_to_list) if letter == attempt]
-				for number in letters:
-					convert_word_to_list[number] = attempt
-				complete = "".join(convert_word_to_list)
+				convert_word = list(target_word)
+				display = list(complete)
+				addToWord(convert_word, attempt, display)
+				complete = ''.join(display)
 				if "_" not in complete:
 					correct == True	
-		elif len(attempt) == len(word) and attempt.isalpha():
+		elif len(attempt) == len(target_word) and attempt.isalpha():
 			if attempt in words_guess:
 				print("You've already guessed the word: " ,attempt)
 			elif attempt != target_word: 
@@ -149,7 +157,7 @@ def main():
 	use_word = what_word_to_use()
 	level = 1	
 	game(use_word, level)
-	while input("Move on the next level Y/N: ").lower == "y"  and level < len(words_to_choose):
+	while input("Move on the next level Y/N: ").lower == "y"  and level < 10:
 		use_word = what_word_to_use()
 		level = level + 1
 		game(use_word, level)
