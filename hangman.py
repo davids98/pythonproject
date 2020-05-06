@@ -101,6 +101,7 @@ def game(target_word, level, hints):
 	letters_guess = []
 	words_guess = []
 	attempts_left = 6
+	show_hint = False
 	if level == 1:
 		print("\n H A N G M A N \n")
 		rules = input("Press Enter To Begin ...\nType in [ How ] for a HOW TO PLAY\n\n" ).lower()
@@ -121,9 +122,15 @@ def game(target_word, level, hints):
 	draw(attempts_left)
 	while not correct and attempts_left > 0:
 		print(complete)
-		print("Hints: ", hints)
+		if not show_hint:
+			print("Hints: ", hints)
+		else:
+			num = words_to_choose.index(target_word)
+			print(num)
 		print("\n")
 		attempt = input("Please guess a letter or word: " ).lower()
+		if attempt == "hint" or attempt == " hint" or attempt == "[hint]" or attmept == "hint ":
+			show_hint = True
 		if len(attempt) == 1 and attempt.isalpha():
 			if attempt in letters_guess:
 				print("You've already guessed the letter: " ,attempt)
