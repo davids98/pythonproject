@@ -103,7 +103,7 @@ def game(target_word, level):
 	if level == 1:
 		print("\n H A N G M A N \n")
 		input("Press Enter To Begin ..." )
-	print("You Are On Level " , level)
+	print("\n You Are On Level " , level)
 	print("\n")
 	draw(attempts_left)
 	while not correct and attempts_left > 0:
@@ -126,8 +126,8 @@ def game(target_word, level):
 				display = list(complete)
 				addToWord(convert_word, attempt, display)
 				complete = ''.join(display)
-				if "_" not in complete:
-					correct == True	
+				if complete == target_word:
+					correct = True	
 		elif len(attempt) == len(target_word) and attempt.isalpha():
 			if attempt in words_guess:
 				print("You've already guessed the word: " ,attempt)
