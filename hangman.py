@@ -82,6 +82,7 @@ def draw(attempt):
 	]
 	print(hanglist[6 - attempt])
 
+
 def what_word_to_use():
 	target_word = random.choice(words_to_choose)
 	return target_word.lower()
@@ -94,7 +95,7 @@ def addToWord(word,letter,display):
 	for j in range(len(instance)):
 		display[instance[j]] = word[instance[j]]			
 
-def game(target_word, level):
+def game(target_word, level, hints):
 	complete = "_"  * len(target_word)
 	correct = False;
 	letters_guess = []
@@ -102,12 +103,25 @@ def game(target_word, level):
 	attempts_left = 6
 	if level == 1:
 		print("\n H A N G M A N \n")
-		input("Press Enter To Begin ..." )
+		rules = input("Press Enter To Begin ...\nType in [ How ] for a HOW TO PLAY\n\n" ).lower()
+
+		if rules == "how":	
+			print("\n You Are Lawyer Tasked With Defending 10 People Set To Be Hanged ")
+			print(" As You Are Making Your Case To The Hangman To Save These People You Suddenly Forget A Word On The Tip Of Your Tongue ")
+			print(" You Must Remember What The Word Was Before The Hangman Kills The People You Are Set To Save \n\n")
+			print(" 1) When Given The Prompt Guess A Letter Or Word ")
+			print(" 2) With Each Wrong Guess The Hangman Adds A Limb. Once All Limbs Are Added The Game Is Over ")
+			print(" 3) Save All 10 People To Win The Game ")
+			print(" 4) You Start With One Hint That You Can Use By Typing In [ hint ] ")	
+			print(" 5) Every Flawless Round Adds Another Hint For You To Use Whenever You Choose  \n")
+			input("Press Enter To Begin ..." )
+		
 	print("\n You Are On Level " , level)
 	print("\n")
 	draw(attempts_left)
 	while not correct and attempts_left > 0:
 		print(complete)
+		print("Hints: ", hints)
 		print("\n")
 		attempt = input("Please guess a letter or word: " ).lower()
 		if len(attempt) == 1 and attempt.isalpha():
@@ -120,7 +134,7 @@ def game(target_word, level):
 				letters_guess.append(attempt)
 			else:
 				draw(attempts_left)
-				print("You guessed a correct letter")
+				print("You guessed a correct letter!")
 				letters_guess.append(attempt) 
 				convert_word = list(target_word)
 				display = list(complete)
@@ -154,14 +168,17 @@ def game(target_word, level):
 
 def main():
 	use_word = what_word_to_use()
-	level = 1	
-	game("hello", level)
+	level = 1
+	hints = 1	
+	game("hello", level, hints)
+	num_hints = hints
 	while level < 10:
 		play_on = input("Move on the next level? Yes/No: ")
 		if play_on[0] == "y" or play_on[0] == "Y": 
 			use_word = what_word_to_use()
 			level = level + 1
-			game(use_word, level)
+			game(use_word, level,num_hints)
+			num_hints = hints
 		else:
 			break
 
