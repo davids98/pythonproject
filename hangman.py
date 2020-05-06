@@ -130,9 +130,16 @@ def game(target_word, level, hints):
 		print("\n")
 		attempt = input("Please guess a letter or word: " ).lower()
 		if attempt == "hint" or attempt == " hint" or attempt == "[hint]" or attempt == "hint ":
-			show_hint = True
-			hints = hints -1
-		if len(attempt) == 1 and attempt.isalpha():
+			draw(attempts_left)
+			if ('hint' or '[hint]' or 'hint ' or ' hint') in words_guess:
+				print("\nYou have used the hint for this round. Keep Going" )
+			elif hints == 0:
+				print("\nYou have no more hints. Win a round flawlessly to gain another hint")
+			else:
+				show_hint = True
+				hints = hints -1
+				words_guess.append(attempt) 
+		elif len(attempt) == 1 and attempt.isalpha():
 			if attempt in letters_guess:
 				print("You've already guessed the letter: " ,attempt)
 			elif attempt not in target_word:
@@ -162,12 +169,14 @@ def game(target_word, level, hints):
 				correct = True
 				complete = target_word
 		elif len(attempt) > 1 and attempt.isalpha():
+			draw(attempts_left)
 			print("Guess does not have correct amount of letters. Try again." )
 		else: 
+			draw(attempts_left)
 			print("Not a valid input. Please try again" )
 
 	if correct:
-		print("You win this level!")
+		print("You win this level!\n")
 		if attempts_left == 6:
 			hints = hints + 1
 		return hints
@@ -182,8 +191,8 @@ def main():
 	hints = 1	
 	print(len(words_to_choose))
 	print(len(hints_list))
-	num_hints = game("hello", level, hints)
-	while level < 10:
+	num_hints = game(use_word, level, hints)
+	while level < 10 and num_hints != -1:
 		play_on = input("Move on the next level? Yes/No: ")
 		if play_on[0] == "y" or play_on[0] == "Y": 
 			use_word = what_word_to_use()
@@ -191,7 +200,8 @@ def main():
 			num_hints = game(use_word, level,num_hints)
 		else:
 			break
-
+	if level == 10:
+		print("CONGRATULATIONS!!\nYou Beat The Hangman And Saved Everbody!!\nYou Win!!")
 
 
 
