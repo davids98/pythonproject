@@ -160,25 +160,25 @@ def game(target_word, level, hints):
 
 	if correct:
 		print("You win this level!")
-		return 1
+		if attempts_left == 6:
+			hints = hints + 1
+		return hints
 	else:
 		print("Sorry the guy you were supposed to save has been hanged. \nThe word was [" ,target_word ,"] \nThe HANGMAN has won. \nGame Over.")
-		return 0
+		return -1
 
 
 def main():
 	use_word = what_word_to_use()
 	level = 1
 	hints = 1	
-	game("hello", level, hints)
-	num_hints = hints
+	num_hints = game("hello", level, hints)
 	while level < 10:
 		play_on = input("Move on the next level? Yes/No: ")
 		if play_on[0] == "y" or play_on[0] == "Y": 
 			use_word = what_word_to_use()
 			level = level + 1
-			game(use_word, level,num_hints)
-			num_hints = hints
+			num_hints = game(use_word, level,num_hints)
 		else:
 			break
 
