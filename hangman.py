@@ -199,7 +199,7 @@ def main():
 		else:
 			break
 	if level == 10:
-		print("CONGRATULATIONS!!\nYou Beat The Hangman And Saved Everbody!!\nYou Win!!") # let user know they have one
+		print("CONGRATULATIONS!!\nYou Beat The Hangman And Saved Everbody!!\nYou Win!!") # let user know they have won
 
 
 
