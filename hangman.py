@@ -1,6 +1,6 @@
 import random # import random lib
 from word_bank import words_to_choose # import the wordbank 
-
+from word_bank import hints_list
 
 
 def draw(attempt):
@@ -126,11 +126,12 @@ def game(target_word, level, hints):
 			print("Hints: ", hints)
 		else:
 			num = words_to_choose.index(target_word)
-			print(num)
+			print("Hint: ", hints_list[num] )
 		print("\n")
 		attempt = input("Please guess a letter or word: " ).lower()
-		if attempt == "hint" or attempt == " hint" or attempt == "[hint]" or attmept == "hint ":
+		if attempt == "hint" or attempt == " hint" or attempt == "[hint]" or attempt == "hint ":
 			show_hint = True
+			hints = hints -1
 		if len(attempt) == 1 and attempt.isalpha():
 			if attempt in letters_guess:
 				print("You've already guessed the letter: " ,attempt)
@@ -179,6 +180,8 @@ def main():
 	use_word = what_word_to_use()
 	level = 1
 	hints = 1	
+	print(len(words_to_choose))
+	print(len(hints_list))
 	num_hints = game("hello", level, hints)
 	while level < 10:
 		play_on = input("Move on the next level? Yes/No: ")
