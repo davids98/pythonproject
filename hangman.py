@@ -72,7 +72,7 @@ def draw(attempt):
 		"""     \t\t\t-------------
 			|	    |
 			|	    O
-			|	   \\ |/
+			|	   \\|/
 			|	    |      
 			|	   / \\
 			|
@@ -105,7 +105,7 @@ def game(target_word, level):
 		input("Press Enter To Begin ..." )
 	print("You Are On Level " , level)
 	print("\n")
-	
+	draw(attempts_left)
 	while not correct and attempts_left > 0:
 		print(complete)
 		print("\n")
@@ -114,9 +114,9 @@ def game(target_word, level):
 			if attempt in letters_guess:
 				print("You've already guessed the letter: " ,attempt)
 			elif attempt not in target_word:
+				attempts_left -= 1
 				draw(attempts_left)
 				print("The letter [",attempt,"] is not in the word. Try again")
-				attempts_left -= 1
 				letters_guess.append(attempt)
 			else:
 				draw(attempts_left)
@@ -132,9 +132,9 @@ def game(target_word, level):
 			if attempt in words_guess:
 				print("You've already guessed the word: " ,attempt)
 			elif attempt != target_word: 
+				attempts_left -= 1
 				draw(attempts_left)
 				print(attempt," is not the correct word. Try again")
-				attempts_left -= 1
 				words_guess.append(attempt)
 			else: 
 				correct = True
@@ -146,21 +146,28 @@ def game(target_word, level):
 
 	if correct:
 		print("You win this level!")
+		return 1
 	else:
-		print("Sorry you killed the man by using all your attempts. The word was " ,target_word ," Game Over.")
-
-
-
+		print("Sorry the guy you were supposed to save has been hanged. \nThe word was [" ,target_word ,"] \nThe HANGMAN has won. \nGame Over.")
+		return 0
 
 
 def main():
 	use_word = what_word_to_use()
 	level = 1	
-	game(use_word, level)
-	while input("Move on the next level Y/N: ").lower == "y"  and level < 10:
-		use_word = what_word_to_use()
-		level = level + 1
-		game(use_word, level)
-	
+	game("hello", level)
+	while level < 10:
+		play_on = input("Move on the next level? Yes/No: ")
+		if play_on[0] == "y" or play_on[0] == "Y": 
+			use_word = what_word_to_use()
+			level = level + 1
+			game(use_word, level)
+		else:
+			break
 
-main()
+
+
+
+if __name__ == '__main__':
+	main()
+
