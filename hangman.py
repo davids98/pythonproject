@@ -141,7 +141,8 @@ def game(target_word, level, hints):              # defines the logic for the ga
 				words_guess.append(attempt)             # make show hint true and append hint to words typed in
 		elif len(attempt) == 1 and attempt.isalpha():
 			if attempt in letters_guess:
-				print("You've already guessed the letter: " ,attempt)   # let user know if they already yepd in letter
+				draw(attempts_left)
+				print("You've already guessed the letter [" ,attempt, "]")   # let user know if they already yepd in letter
 			elif attempt not in target_word:
 				attempts_left -= 1
 				draw(attempts_left)
@@ -159,11 +160,12 @@ def game(target_word, level, hints):              # defines the logic for the ga
 					correct = True	
 		elif len(attempt) == len(target_word) and attempt.isalpha():
 			if attempt in words_guess:
-				print("You've already guessed the word: " ,attempt)  # let user know they already guessed word
+				draw(attempts_left)	
+				print("You've already guessed the word [" ,attempt, "]")  # let user know they already guessed word
 			elif attempt != target_word: 
 				attempts_left -= 1
 				draw(attempts_left)
-				print(attempt," is not the correct word.")   # let user know if word is in correct
+				print("[",attempt,"] is not the correct word.")   # let user know if word is in correct
 				words_guess.append(attempt)
 			else: 
 				correct = True
